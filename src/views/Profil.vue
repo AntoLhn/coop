@@ -8,10 +8,15 @@
             <h3>Messages</h3>
             <div v-if="loading">Chargement des messages...</div>
             <div v-else>
-                <span>Dans l'ordre croissant</span>
-                <template v-for="message in this.messages.slice(0, 10)">
-                    <Message :message="message"></Message>
-                </template>
+                <div v-if="messages.length">
+                    <span>Dans l'ordre croissant</span>
+                    <template v-for="message in this.messages.slice(0, 10)">
+                        <Message :message="message"></Message>
+                    </template>
+                </div>
+                <div v-else>
+                    <p>Aucun message n'a été posté par cet utilisateur.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -27,8 +32,14 @@ export default {
             loading: true
         }
     },
-    mounted(){
-        if(this.$route.params.membre_id){
+    watch: {
+        $route(){
+            this.rechargerMessages();
+        }
+    },
+    methods: {
+        rechargerMessages(){
+            this.messages = [];
             this.membre = this.$store.getters.getMembre(this.$route.params.membre_id);
             let options = {weekday : 'long', year: 'numeric', month: 'long', day: 'numeric'};
             this.membre.dateInsc = new Date(this.membre.created_at).toLocaleDateString('fr-FR', options);
@@ -45,6 +56,11 @@ export default {
                 });
             });
             this.loading = false;
+        }
+    },
+    mounted(){
+        if(this.$route.params.membre_id){
+            this.rechargerMessages();
         }
     }
 }
