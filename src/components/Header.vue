@@ -24,9 +24,6 @@ export default {
       this.$store.commit('deconnexion');
       this.$router.push('/Connexion');
     }
-  },
-  mounted(){
-    console.log(this.membre)
   }
 }
 </script>
