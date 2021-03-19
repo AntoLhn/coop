@@ -41,6 +41,8 @@ export default {
         rechargerMessages(){
             this.messages = [];
             this.membre = this.$store.getters.getMembre(this.$route.params.membre_id);
+            
+            //Date d'insription
             let options = {weekday : 'long', year: 'numeric', month: 'long', day: 'numeric'};
             this.membre.dateInsc = new Date(this.membre.created_at).toLocaleDateString('fr-FR', options);
 
