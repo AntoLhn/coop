@@ -24,14 +24,14 @@
 
 <script>
 export default {
-    data(){
-        return{
-            fullname: 'TEST',
-            email: 'test@test.fr',
-            password: 'test',
-            passwordconf: 'test',
-        }
-    },
+    // data(){
+    //     return{
+    //         fullname: 'TEST',
+    //         email: 'test@test.fr',
+    //         password: 'test',
+    //         passwordconf: 'test',
+    //     }
+    // },
     methods : {
         creerCompte(){
             if(this.password == this.passwordconf){

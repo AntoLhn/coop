@@ -18,12 +18,12 @@
 
 <script>
 export default {
-    data(){
-        return{
-            email: 'test@test.fr',
-            password: 'test',
-        }
-    },
+    // data(){
+    //     return{
+    //         email: 'test@test.fr',
+    //         password: 'test',
+    //     }
+    // },
     methods: {
         connexion(){
             api.post('members/signin',{
