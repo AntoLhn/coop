@@ -4,10 +4,10 @@
         <form @submit.prevent="connexion" class="form">
             <fieldset>
                 <label>Email</label>
-                <input v-model="email" type="email" placeholder="Email"/>
+                <input v-model="email" type="email" placeholder="Email" required/>
 
                 <label>Mot de passe</label>
-                <input v-model="password" type="password" placeholder="Mot de passe"/>
+                <input v-model="password" type="password" placeholder="Mot de passe" required/>
                 
                 <button>Connexion</button>
                 <p><router-link to="/Inscription">Créer son compte</router-link></p>
