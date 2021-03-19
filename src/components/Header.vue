@@ -1,6 +1,6 @@
 <template>
     <div id="nav">
-      <!--img id="logo" src="../assets/Coop_italia_logo.png" alt="Logo"/-->
+      <img id="logo" src="../assets/Coop_italia_logo.png" alt="Logo"/>
       <div id="menu">
         <router-link to="/Home">Conversations</router-link> |
         <router-link to="/Membres">Membres</router-link>

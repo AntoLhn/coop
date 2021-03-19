@@ -64,3 +64,7 @@ export default {
   }
 }
 </script>
+
+<style>
+  @import './assets/dist/milligram.css';
+</style>
