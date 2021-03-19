@@ -37,6 +37,7 @@ export default {
         }
     }, 
     mounted (){
+        //On récupère les conversations dans l'api
         if(this.$route.params.id){
             api.get('channels/'+this.$route.params.id).then(response =>{
                 this.conversation = response.data;
@@ -45,12 +46,14 @@ export default {
         }
     },
     methods : {
+        //On charges les messages des conversations
         chargerMessages(){
             api.get('channels/'+this.conversation.id+'/posts').then(response =>{
                 let messages = response.data.reverse();
                 this.messages = messages;
             })
         },
+        //On post un message dans l'api
         posterMessage(){
             api.post('channels/'+this.conversation.id+'/posts',{
                 message : this.message

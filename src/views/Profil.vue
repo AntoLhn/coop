@@ -33,13 +33,16 @@ export default {
         }
     },
     watch: {
+        //Ecoute la route pour savoir si elle change
         $route(){
             this.rechargerMessages();
         }
     },
     methods: {
+        //Charge et recharge les messages si la route change
         rechargerMessages(){
             this.messages = [];
+            //On récupère les membres du store
             this.membre = this.$store.getters.getMembre(this.$route.params.membre_id);
             
             //Date d'insription
@@ -47,20 +50,27 @@ export default {
             this.membre.dateInsc = new Date(this.membre.created_at).toLocaleDateString('fr-FR', options);
 
             let cpt = 0;
+            //Pour chaque conversation dans le store
             this.$store.state.conversations.forEach(conversation => {
+                //On récupère les messages postés dans les conversations
                 api.get('channels/'+conversation.id+'/posts').then(response =>{
+                    //Pour chaque messages
                     response.data.forEach(message => {
+                        //Si le message a été posté par l'utilisateur connecté
                         if(message.member_id == this.membre.id){
+                            //On ajoute dans messages
                             this.messages.push(message);
                         }
                     })
                     cpt ++;
                 });
             });
+            //On fini le chargement des messages
             this.loading = false;
         }
     },
     mounted(){
+        //Charge ou recharge les messages si la route change
         if(this.$route.params.membre_id){
             this.rechargerMessages();
         }

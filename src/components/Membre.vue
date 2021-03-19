@@ -26,9 +26,12 @@ export default {
         }
     },
     methods : {
+        //Suppression d'un membre
         effacerMembre(){
+            //On vérifie si on se supprime pas sois même
             if(this.$store.state.membre.id != this.membre.id){
                 if(confirm('Voulez-vous supprimer ce membre : '+this.membre.fullname+' ? ')){
+                    //Suppression dans l'api
                     api.delete('members/'+this.membre.id).then(response =>{
                         this.$bus.$emit('charger-membres');
                     }).catch(error => {
@@ -36,6 +39,7 @@ export default {
                     })
                 }
             } else {
+                //Message d'alerte si on se supprime nous même
                 alert("Impossible de vous supprimer vous-même.");
             }
             

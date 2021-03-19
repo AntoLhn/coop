@@ -33,7 +33,9 @@ export default {
     //     }
     // },
     methods : {
+        //Création d'un compte
         creerCompte(){
+            //On vérifie si les mdp correspondent
             if(this.password == this.passwordconf){
                 api.post('members',{
                     fullname:this.fullname,

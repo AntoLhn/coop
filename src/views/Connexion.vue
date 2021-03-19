@@ -25,6 +25,7 @@ export default {
     //     }
     // },
     methods: {
+        //Vérifie si l'utilisateur existe et si son mot de passe est bon grâce à l'API
         connexion(){
             api.post('members/signin',{
                 email:this.email,

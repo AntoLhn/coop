@@ -48,9 +48,11 @@ export default {
 		this.m = this.message;
 	},
     computed : {
+        //On récupère l'éditeur du message
         membre() {
 			return this.$store.getters.getMembre(this.m.member_id);
 		},
+        //Définit la date et l'heure de la publication ou l'édition d'un message
 		dateMessage() {
 			let options = {weekday: "long", year: "numeric", month: "long", day: "numeric"};
 			let dc = new Date(this.m.created_at);
@@ -63,11 +65,13 @@ export default {
 		}
     },
     methods: {
+        //Changement d'état pour l'édition d'un message
 		activerEditer() {
 			this.editer = true;
 			this.messageContent = this.m.message;
 			setTimeout(() => this.$refs["editer"].focus(), 500);
 		},
+        //Envoi à l'api la modification du message
 		editerMessage() {
 			api.put(`channels/${this.m.channel_id}/posts/${this.m.id}`, {
                 message: this.messageContent,
@@ -77,6 +81,7 @@ export default {
                 this.editer = false;
             });
 		},
+        //Confirmation de supression et supression du message
 		supprimerMessage() {
 			if (confirm("Voulez vous vraiment supprimer ce message ?")) {
 				api.delete(`channels/${this.m.channel_id}/posts/${this.m.id}`)

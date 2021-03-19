@@ -16,6 +16,7 @@ Vue.prototype.$bus = new Vue();
 Vue.config.productionTip = false;
 
 new Vue({
+  //Ajoute le token pour chaque requête à l'api
   beforeCreate() {
     api.interceptors.request.use(config => {
       if(this.$store.state.token) {

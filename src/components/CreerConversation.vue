@@ -33,23 +33,29 @@ export default {
         }
     },
     mounted(){
+        //On récupère du bus l'affichage du formulaire de création de conversation
         this.$bus.$on('afficher-creer-conversation',this.afficherFormulaire)
     },
     methods :{
+        //On créer une nouvelle conversation
         creerConversation(){
+            //Envois des données siasie à l'api
             api.post('channels',{
                 label : this.label,
                 topic : this.topic
             }).then(response =>{
+                //On quitte le formulaire de création de conversation puis on demande au bus de recharger les conversations
                 this.masquerFormulaire();
                 this.$bus.$emit('charger-conversations');
             })
         },
+        //On initialise les champs à l'affichage du formulaire de création de conversation
         afficherFormulaire(){
             this.topic = '';
             this.label = '';
             this.afficher = true;
         },
+        //On quitte le formulaire de création de conversation
         masquerFormulaire(){
             this.afficher = false;
         }

@@ -20,6 +20,7 @@
 <script>
 export default {
   methods : {
+    //On demande en store de réinitialisé ses variables puis en redirige sur la connexion
     deconnexion(){
       this.$store.commit('deconnexion');
       this.$router.push('/Connexion');
