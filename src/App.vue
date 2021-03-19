@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header v-if="this.$store.state.connecte"/>
+    <Header v-if="this.$store.state.token"/>
     <router-view/>
   </div>
 </template>
@@ -27,16 +27,16 @@ export default {
       this.$bus.$on('charger-conversations', this.chargerConversations);
 
       //Redirection des routes si pas connecté
-      if(!this.$store.state.connecte){
+      if(!this.$store.state.token){
         if(this.$route.path != '/Connexion' && this.$route.path != '/Inscription'){
           this.$router.push('/Connexion');
         }
       } else {
-        console.log("ID"+this.$store.state.id);
-        api.get('membres/'+this.$store.state.id+'/signedin').catch(error =>{
+        // En attente de correction de l'API
+        /*api.get('membres/'+this.$store.state.membre.id+'/signedin').catch(error =>{
           this.$store.commit('deconnexion');
           this.$router.push('/Connexion');
-        })
+        })*/
       }
 
     //Si l'api n'a pas chargée
@@ -47,13 +47,15 @@ export default {
   methods : {
     chargerMembres(){
       //Chargement de la liste des membres
-      api.get('members').then(response => {
-        this.$store.commit('setMembres', response.data);
-      }) 
+      if(this.$store.state.token){
+        api.get('members').then(response => {
+          this.$store.commit('setMembres', response.data);
+        });
+      }
     },
     chargerConversations(){
       //Chargement de la liste des conversations
-      if(this.$store.state.connecte){
+      if(this.$store.state.token){
         api.get('channels').then(response => {
           this.$store.commit('setConversations', response.data);
         });

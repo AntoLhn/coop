@@ -1,15 +1,18 @@
 <template>
-    <div id="profil" v-id="membre">
+    <div id="profil" v-if="membre">
         <h2>{{membre.fullname}}</h2>
-        <p><a :href="'mailto'+membre.email">{{membre.email}}</a></p>
+        <a :href="'mailto'+membre.email">{{membre.email}}</a>
         <p>Inscrit depuis le {{membre.dateInsc}}</p>
-
+        <hr>
         <div>
             <h3>Messages</h3>
             <div v-if="loading">Chargement des messages...</div>
-            <template v-else v-for="message in messagesTries">
-                <Message :message = "message"></Message>
-            </template>
+            <div v-else>
+                <span>Dans l'ordre croissant</span>
+                <template v-for="message in this.messages.slice(0, 10)">
+                    <Message :message="message"></Message>
+                </template>
+            </div>
         </div>
     </div>
 </template>
@@ -24,20 +27,6 @@ export default {
             loading: true
         }
     },
-    computed: {
-        messagesTries(){
-            function compare(a,b){
-                if(a.created_at < b.created_at){
-                    return -1;
-                }
-                if(a.created_at > b.created_at){
-                    return 1;
-                }
-                return 0;
-            }
-            return this.messages.sort(compare).slice(0, 10);
-        }
-    },
     mounted(){
         if(this.$route.params.membre_id){
             this.membre = this.$store.getters.getMembre(this.$route.params.membre_id);
@@ -48,16 +37,14 @@ export default {
             this.$store.state.conversations.forEach(conversation => {
                 api.get('channels/'+conversation.id+'/posts').then(response =>{
                     response.data.forEach(message => {
-                        if(message.membre_id == this.membre.id){
+                        if(message.member_id == this.membre.id){
                             this.messages.push(message);
                         }
                     })
                     cpt ++;
-                    if(this.$store.state.conversations.length == cpt){
-                        setTimeout(()=> this.loading = false, 2000);
-                    }
                 });
             });
+            this.loading = false;
         }
     }
 }

@@ -43,7 +43,6 @@ export default {
             }).then(response =>{
                 this.masquerFormulaire();
                 this.$bus.$emit('charger-conversations');
-                console.log(response.data);
             })
         },
         afficherFormulaire(){

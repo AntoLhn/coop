@@ -30,7 +30,7 @@ export default {
                 email:this.email,
                 password:this.password
             }).then(response =>{
-                this.$store.commit('setConnecte', response.data.connecte);
+                this.$store.commit('setConnecte', response.data);
                 this.$router.push('/Home');
             }).catch(error => {
                 alert(error.response.data.message);

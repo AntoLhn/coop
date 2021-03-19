@@ -4,7 +4,6 @@
             <h3>{{conversation.topic}}</h3>
             <hr>
             <p>{{conversation.label}}</p>
-            <p>{{conversation.id}}</p>
         </div>
         <div class="column column-20">
             <router-link :to="{name:'Conversation', params:{id : conversation.id}}"

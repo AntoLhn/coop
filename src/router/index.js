@@ -25,6 +25,11 @@ const routes = [
     path : '/membres',
     component: () => import('../views/Membres.vue')
   },
+  {
+		path: "/profil/:membre_id",
+		name: "Profil",
+		component: () => import("../views/Profil.vue"),
+	},
 ]
 
 const router = new VueRouter({
