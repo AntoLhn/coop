@@ -1,5 +1,11 @@
 # coop
 
+Rendu projet Coop :
+
+Noms et prénoms : Liehn Antonin
+URL du dépôt Git : https://github.com/AntoLhn/coop
+URL publique du site web sur Netlify : https://coop-antonin-liehn.netlify.app
+
 ## Project setup
 ```
 npm install
